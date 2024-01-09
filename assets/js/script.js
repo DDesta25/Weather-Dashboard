@@ -16,33 +16,58 @@ const getCurrent = async (lat, lon) => {
   $(".current").append($(`<p>Temp: ${weather.main.temp}</p>`));
   $(".current").append($(`<p>Wind: ${weather.wind.speed}</p>`));
   $(".current").append($(`<p>Humidity: ${weather.main.humidity}</p>`));
-  console.log(weather);
-  console.log(weather.name);
-  console.log(weather.main.temp);
-  console.log(weather.wind.speed);
+  // console.log(weather);
+  // console.log(weather.name);
+  // console.log(weather.main.temp);
+  // console.log(weather.wind.speed);
 };
 const getForecast = async (lat, lon) => {
-  console.log("forecast");
+  // console.log("forecast");
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=affb9672421f2bdbafa153c5ca91f216&units=imperial`
   );
-  console.log(response);
+  console.log("response" + JSON.stringify(response));
   const data = await response.json();
-  console.log(data);
+  console.log("data" + JSON.stringify(data));
   const result = data.list.filter((day) => day.dt_txt.includes("15:00:00"));
-  console.log(result);
+  console.log("result" + JSON.stringify(result));
+  var start = dayjs().add(1, "day").startOf("day").unix();
+  var end = dayjs().add(6, "day").startOf("day").unix();
+  for (let index = 0; index < result.length; index++) {
+    if (result[index].dt >= start && result.dt < end) {
+      if (result[index].dt_txt.slice(11, 13) == "12") {
+        renderForecastCard(result[index]);
+      }
+    }
+  }
   for (let i = 0; i < result.length; i++) {
     const div = document.createElement("div");
     const day = document.createElement("p");
     day.textContent = result[i].dt_txt;
-    div;
+    // div
     div.append(day);
     document.querySelector("#Forecast").append(div);
   }
 };
+function renderForecastCard(forecast) {
+  $(".current").append($(`<h1>${weather.name}</h1>`));
+  const myImage = $(`<img>`);
+  myImage.attr(
+    "src",
+    `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
+  );
+  $(".current").append(myImage);
+  $(".current").append($(`<p>Temp: ${forecast.main.temp}</p>`));
+  $(".current").append($(`<p>Wind: ${forecast.wind.speed}</p>`));
+  $(".current").append($(`<p>Humidity: ${forecast.main.humidity}</p>`));
+  console.log(forecast);
+  console.log(forecast.name);
+  console.log(forecast.main.temp);
+  console.log(forecast.wind.speed);
+}
 
 const getCoords = async (city) => {
-  console.log(city);
+  // console.log(city);
   const response = await fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=affb9672421f2bdbafa153c5ca91f216`
   );
