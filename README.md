@@ -76,7 +76,7 @@ Weather-Dashboard using api
 
 [![html](https://img.shields.io/badge/Language-html-ff0000?style=plastic&logo=HTML5&logoWidth=10)](https://www.w3schools.com/html/)
 
-[![html](https://img.shields.io/badge/Language-html-ff0000?style=plastic&logo=HTML5&logoWidth=10)](https://www.w3schools.com/html/)
+[![css](https://img.shields.io/badge/Language-css-ff0000?style=plastic&logo=css&logoWidth=10)](https://www.w3schools.com/w3css/defaulT.asp/)
 
 [![VS Code](https://img.shields.io/badge/IDE-VSCode-ff0000?style=plastic&logo=VisualStudioCode&logoWidth=10)](https://code.visualstudio.com/docs)
 
