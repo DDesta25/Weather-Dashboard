@@ -83,7 +83,7 @@ function renderForecastCard(forecast) {
 const getCoords = async (city) => {
   // console.log(city);
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=affb9672421f2bdbafa153c5ca91f216`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=affb9672421f2bdbafa153c5ca91f216`
   );
   // get the body out of the response
   const data = await response.json();
