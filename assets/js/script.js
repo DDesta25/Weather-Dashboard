@@ -26,13 +26,27 @@ const getForecast = async (lat, lon) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=affb9672421f2bdbafa153c5ca91f216&units=imperial`
   );
-  console.log("response" + JSON.stringify(response));
+  // console.log("response" + JSON.stringify(response));
   const data = await response.json();
-  console.log("data" + JSON.stringify(data));
+  console.log(data);
+  // console.log("data" + JSON.stringify(data));
   const result = data.list.filter((day) => day.dt_txt.includes("15:00:00"));
-  console.log("result" + JSON.stringify(result));
+  // console.log("result" + JSON.stringify(result));
   var start = dayjs().add(1, "day").startOf("day").unix();
   var end = dayjs().add(6, "day").startOf("day").unix();
+
+  result.forEach((index) => {
+    $(".forecast").append(
+      $(`<div>
+  <div >${index.dt_txt}</div>
+  <div>${index.main.temp}</div>
+  <div>${index.wind.speed}</div>
+  <div>${index.main.humidity}</div>
+
+  </div>`)
+    );
+  });
+
   for (let index = 0; index < result.length; index++) {
     if (result[index].dt >= start && result.dt < end) {
       if (result[index].dt_txt.slice(11, 13) == "12") {
@@ -79,6 +93,18 @@ const getCoords = async (city) => {
 
   getCurrent(lat, lon);
   getForecast(lat, lon);
+
+  function searched() {
+    let addCity = JSON.parse(localStorage.getItem("newCity"));
+    if (!Array.isArray(addCity)) {
+      addCity = [];
+
+      addCity.unshift($(".city").val());
+      localStorage.setItem("newCity", JSON.stringify(addCity));
+      console.log(addCity);
+      console.log(2);
+    }
+  }
 };
 
 //listen for a click
